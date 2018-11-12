@@ -106,6 +106,10 @@ class ConsistencygroupManager(base.ManagerWithFind):
         :rtype: list of :class:`Consistencygroup`
         """
 
+        if search_opts:
+            # Remove 'all_tenants' because it does not work on our OpenStack instance (supports max: 3.50)
+            search_opts.pop('all_tenants', None)
+
         query_string = utils.build_query_param(search_opts)
 
         detail = ""
